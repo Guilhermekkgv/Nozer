@@ -14,7 +14,7 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
 function Library:Create(table)
-    local windowName = table.Name
+    local windowName = "BLR V0.12 | discord.gg/lunor | No Role Assigned" -- Ajustado o título
     local uiSize = table.Size or UDim2.fromOffset(500, 350)
     local themeName = table.Theme or "Dark"
 
@@ -38,7 +38,7 @@ function Library:Create(table)
             TabNameText = Color3.fromRGB(255, 255, 255),
             TabButtonBackground = Color3.fromRGB(20, 20, 20),
             TabButtonHover = Color3.fromRGB(30, 30, 30),
-            TabButtonActive = Color3.fromRGB(20, 20, 20),
+            TabButtonActive = Color3.fromRGB(30, 30, 30), -- Ajustado para a aba selecionada
             TabIcon = Color3.fromRGB(255, 255, 255),
             TabIconHover = Color3.fromRGB(255, 255, 255),
             TabIconActive = Color3.fromRGB(255, 255, 255),
@@ -52,41 +52,7 @@ function Library:Create(table)
             ElementTextHover = Color3.fromRGB(255, 255, 255),
             SliderTrack = Color3.fromRGB(20, 20, 20),
             SliderFill = Color3.fromRGB(0, 170, 255), -- Slider azul
-            SliderKnob = Color3.fromRGB(255, 255, 255), -- Knob branca
-            ToggleOff = Color3.fromRGB(255, 255, 255),
-            ToggleOn = Color3.fromRGB(255, 255, 255),
-            ToggleKnobOff = Color3.fromRGB(255, 0, 0),
-            ToggleKnobOn = Color3.fromRGB(255, 0, 0),
-            DropdownListBackground = Color3.fromRGB(20, 20, 20),
-            DropdownOptionBackground = Color3.fromRGB(30, 30, 30),
-            DropdownOptionHover = Color3.fromRGB(40, 40, 40),
-            TextboxInputBackground = Color3.fromRGB(20, 20, 20),
-            CloseButtonIcon = Color3.fromRGB(255, 255, 255),
-        },
-        Red = {
-            MainBackground = Color3.fromRGB(15, 15, 15),
-            TabContainerBackground = Color3.fromRGB(15, 15, 15),
-            ContainerBackground = Color3.fromRGB(15, 15, 15),
-            TitleLine = Color3.fromRGB(50, 50, 50),
-            TitleText = Color3.fromRGB(255, 255, 255),
-            TabNameText = Color3.fromRGB(255, 255, 255),
-            TabButtonBackground = Color3.fromRGB(20, 20, 20),
-            TabButtonHover = Color3.fromRGB(30, 30, 30),
-            TabButtonActive = Color3.fromRGB(20, 20, 20),
-            TabIcon = Color3.fromRGB(255, 255, 255),
-            TabIconHover = Color3.fromRGB(255, 255, 255),
-            TabIconActive = Color3.fromRGB(255, 255, 255),
-            TabText = Color3.fromRGB(255, 255, 255),
-            TabTextHover = Color3.fromRGB(255, 255, 255),
-            TabTextActive = Color3.fromRGB(255, 255, 255),
-            ElementBackground = Color3.fromRGB(0, 0, 0),
-            ElementHover = Color3.fromRGB(35, 35, 35),
-            ElementActive = Color3.fromRGB(45, 45, 45),
-            ElementText = Color3.fromRGB(255, 255, 255),
-            ElementTextHover = Color3.fromRGB(255, 255, 255),
-            SliderTrack = Color3.fromRGB(20, 20, 20),
-            SliderFill = Color3.fromRGB(0, 170, 255), -- Slider azul
-            SliderKnob = Color3.fromRGB(255, 255, 255), -- Knob branca
+            SliderKnob = Color3.fromRGB(0, 170, 255), -- Knob azul
             ToggleOff = Color3.fromRGB(255, 255, 255),
             ToggleOn = Color3.fromRGB(255, 255, 255),
             ToggleKnobOff = Color3.fromRGB(255, 0, 0),
@@ -130,7 +96,7 @@ function Library:Create(table)
     title.TextSize = 16
     title.BackgroundTransparency = 1
     title.Position = UDim2.fromScale(0.015, 0.25)
-    title.Size = UDim2.fromOffset(math.floor(windowWidth * 0.4), 20)
+    title.Size = UDim2.fromOffset(math.floor(windowWidth * 0.8), 20)
     title.TextXAlignment = Enum.TextXAlignment.Left
     title.Parent = titleBar
 
@@ -176,7 +142,7 @@ function Library:Create(table)
     uICorner1.Parent = tabContainer
 
     local uIListLayout = Instance.new("UIListLayout")
-    uIListLayout.Padding = UDim.new(0, 10)
+    uIListLayout.Padding = UDim.new(0, 5) -- Espaçamento entre abas ajustado para 5 pixels
     uIListLayout.FillDirection = Enum.FillDirection.Vertical
     uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     uIListLayout.Parent = tabContainer
@@ -236,7 +202,7 @@ function Library:Create(table)
 
         local icon = Instance.new("ImageLabel")
         icon.Name = "icon"
-        icon.Image = iconId or "rbxassetid://10709752996"
+        icon.Image = iconId or "rbxassetid://10709752996" -- Ícone padrão, pode ser ajustado
         icon.BackgroundTransparency = 1
         icon.Position = UDim2.fromScale(0.05, 0.25)
         icon.Size = UDim2.fromOffset(18, 18)
@@ -299,7 +265,7 @@ function Library:Create(table)
         uIPadding1.Parent = holder
 
         local uIListLayout1 = Instance.new("UIListLayout")
-        uIListLayout1.Padding = UDim.new(0, 10)
+        uIListLayout1.Padding = UDim.new(0, 5) -- Espaçamento entre elementos ajustado para 5 pixels
         uIListLayout1.SortOrder = Enum.SortOrder.LayoutOrder
         uIListLayout1.Parent = holder
 
@@ -443,7 +409,7 @@ function Library:Create(table)
 
             local sliderHolder = Instance.new("Frame")
             sliderHolder.BackgroundTransparency = 1
-            sliderHolder.Size = UDim2.fromOffset(elementWidth, 60) -- Aumentado para acomodar texto e número acima
+            sliderHolder.Size = UDim2.fromOffset(elementWidth, 60)
             sliderHolder.Parent = holder
 
             local textLabel1 = Instance.new("TextLabel")
@@ -459,7 +425,7 @@ function Library:Create(table)
 
             local valueLabel = Instance.new("TextLabel")
             valueLabel.Font = Enum.Font.Gotham
-            valueLabel.Text = tostring(default)
+            valueLabel.Text = tostring(default) .. "/" .. tostring(max) -- Formato "valor/max"
             valueLabel.TextColor3 = theme.ElementText
             valueLabel.TextSize = 14
             valueLabel.TextXAlignment = Enum.TextXAlignment.Right
@@ -483,7 +449,7 @@ function Library:Create(table)
             frame.BackgroundColor3 = theme.SliderTrack
             frame.BackgroundTransparency = 0
             frame.Position = UDim2.fromScale(0.05, 0.25)
-            frame.Size = UDim2.fromOffset(math.floor(elementWidth * 0.9), 10) -- Slider maior
+            frame.Size = UDim2.fromOffset(math.floor(elementWidth * 0.9), 10)
             frame.Parent = slider
 
             local uICorner5 = Instance.new("UICorner")
@@ -532,7 +498,7 @@ function Library:Create(table)
                     local pos = input.Position.X
                     local percentage = math.clamp((pos - frame.AbsolutePosition.X) / frame.AbsoluteSize.X, 0, 1)
                     local value = math.floor(min + (max - min) * percentage)
-                    valueLabel.Text = tostring(value)
+                    valueLabel.Text = tostring(value) .. "/" .. tostring(max)
                     frame1.Size = UDim2.fromOffset(percentage * math.floor(elementWidth * 0.9), 10)
                     knob.Position = UDim2.fromScale(percentage * 0.9 - 0.02, -0.3)
                     callback(value)
@@ -660,8 +626,8 @@ function Library:Create(table)
             textBox.TextTruncate = Enum.TextTruncate.AtEnd
             textBox.BackgroundColor3 = theme.TextboxInputBackground
             textBox.BackgroundTransparency = 0
-            textBox.Position = UDim2.fromScale(0.72, 0.2) -- Movido um pouco para a esquerda
-            textBox.Size = UDim2.fromOffset(math.floor(elementWidth * 0.2), 18) -- Reduzido o tamanho
+            textBox.Position = UDim2.fromScale(0.72, 0.2)
+            textBox.Size = UDim2.fromOffset(math.floor(elementWidth * 0.2), 18)
             textBox.Parent = textbox
 
             local uICorner14 = Instance.new("UICorner")
@@ -870,18 +836,6 @@ function Library:Create(table)
                 firstButton:FindFirstChild("textLabel").TextTransparency = 0
                 firstButton:FindFirstChild("textLabel").TextColor3 = theme.TabTextActive
             end
-        end
-    end)
-
-    spawn(function()
-        if table.StartupSound and table.StartupSound.Toggle and table.StartupSound.SoundID then
-            local sound = Instance.new("Sound", game.CoreGui)
-            sound.SoundId = table.StartupSound.SoundID
-            sound.Volume = 1.5
-            sound.TimePosition = table.StartupSound.TimePosition or 0
-            sound:Play()
-            sound.Stopped:Wait()
-            sound:Destroy()
         end
     end)
 
