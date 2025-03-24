@@ -14,54 +14,43 @@ local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
 function Library:Create(table)
-    local windowName = "BLR V0.12 | discord.gg/lunor | No Role Assigned" -- Ajustado o título
+    local windowName = table.Name
     local uiSize = table.Size or UDim2.fromOffset(500, 350)
     local themeName = table.Theme or "Dark"
-
-    local windowWidth = uiSize.X.Offset
-    local windowHeight = uiSize.Y.Offset
-
-    local tabWidthRatio = 0.22
-    local contentWidthRatio = 0.72
-    local tabContainerWidth = math.floor(windowWidth * tabWidthRatio)
-    local contentWidth = math.floor(windowWidth * contentWidthRatio)
-    local elementWidth = math.floor(contentWidth * 0.94)
-    local tabButtonWidth = math.floor(tabContainerWidth * 0.9)
+    local transparency = table.Transparency or false
 
     local themes = {
         Dark = {
-            MainBackground = Color3.fromRGB(15, 15, 15),
-            TabContainerBackground = Color3.fromRGB(15, 15, 15),
-            ContainerBackground = Color3.fromRGB(15, 15, 15),
-            TitleLine = Color3.fromRGB(50, 50, 50),
+            MainBackground = Color3.fromRGB(40, 40, 40),
+            TabContainerBackground = Color3.fromRGB(30, 30, 30),
+            ContainerBackground = Color3.fromRGB(35, 35, 35),
+            TitleLine = Color3.fromRGB(60, 60, 60),
             TitleText = Color3.fromRGB(255, 255, 255),
             TabNameText = Color3.fromRGB(255, 255, 255),
-            TabButtonBackground = Color3.fromRGB(20, 20, 20),
-            TabButtonHover = Color3.fromRGB(30, 30, 30),
-            TabButtonActive = Color3.fromRGB(30, 30, 30), -- Ajustado para a aba selecionada
+            TabButtonBackground = Color3.fromRGB(25, 25, 25),
+            TabButtonHover = Color3.fromRGB(35, 35, 35),
+            TabButtonActive = Color3.fromRGB(25, 25, 25),
             TabIcon = Color3.fromRGB(255, 255, 255),
             TabIconHover = Color3.fromRGB(255, 255, 255),
             TabIconActive = Color3.fromRGB(255, 255, 255),
             TabText = Color3.fromRGB(255, 255, 255),
             TabTextHover = Color3.fromRGB(255, 255, 255),
             TabTextActive = Color3.fromRGB(255, 255, 255),
-            ElementBackground = Color3.fromRGB(0, 0, 0),
-            ElementHover = Color3.fromRGB(35, 35, 35),
-            ElementActive = Color3.fromRGB(45, 45, 45),
-            ElementText = Color3.fromRGB(255, 255, 255),
-            ElementTextHover = Color3.fromRGB(255, 255, 255),
-            SliderTrack = Color3.fromRGB(20, 20, 20),
-            SliderFill = Color3.fromRGB(0, 170, 255), -- Slider azul
-            SliderKnob = Color3.fromRGB(0, 170, 255), -- Knob azul
-            ToggleOff = Color3.fromRGB(255, 255, 255),
-            ToggleOn = Color3.fromRGB(255, 255, 255),
-            ToggleKnobOff = Color3.fromRGB(255, 0, 0),
-            ToggleKnobOn = Color3.fromRGB(255, 0, 0),
-            DropdownListBackground = Color3.fromRGB(20, 20, 20),
-            DropdownOptionBackground = Color3.fromRGB(30, 30, 30),
-            DropdownOptionHover = Color3.fromRGB(40, 40, 40),
-            TextboxInputBackground = Color3.fromRGB(20, 20, 20),
-            CloseButtonIcon = Color3.fromRGB(255, 255, 255),
+            ElementBackground = Color3.fromRGB(35, 35, 35),
+            ElementHover = Color3.fromRGB(45, 45, 45),
+            ElementActive = Color3.fromRGB(55, 55, 55),
+            ElementText = Color3.fromRGB(180, 180, 180),
+            ElementTextHover = Color3.fromRGB(200, 200, 200),
+            SliderTrack = Color3.fromRGB(30, 30, 30),
+            SliderFill = Color3.fromRGB(80, 80, 80),
+            CheckboxOff = Color3.fromRGB(35, 35, 35),
+            CheckboxOn = Color3.fromRGB(147, 112, 219),
+            CheckboxIcon = Color3.fromRGB(255, 255, 255),
+            DropdownListBackground = Color3.fromRGB(30, 30, 30),
+            DropdownOptionBackground = Color3.fromRGB(35, 35, 35),
+            DropdownOptionHover = Color3.fromRGB(45, 45, 45),
+            TextboxInputBackground = Color3.fromRGB(30, 30, 30),
+            CloseButtonIcon = Color3.fromRGB(255, 255, 255)
         }
     }
 
@@ -96,7 +85,7 @@ function Library:Create(table)
     title.TextSize = 16
     title.BackgroundTransparency = 1
     title.Position = UDim2.fromScale(0.015, 0.25)
-    title.Size = UDim2.fromOffset(math.floor(windowWidth * 0.8), 20)
+    title.Size = UDim2.fromOffset(200, 20)
     title.TextXAlignment = Enum.TextXAlignment.Left
     title.Parent = titleBar
 
@@ -128,9 +117,9 @@ function Library:Create(table)
     local tabContainer = Instance.new("ScrollingFrame")
     tabContainer.Name = "tabContainer"
     tabContainer.BackgroundColor3 = theme.TabContainerBackground
-    tabContainer.BackgroundTransparency = 0
+    tabContainer.BackgroundTransparency = transparency and 0.2 or 0
     tabContainer.Position = UDim2.fromScale(0.03, 0.05)
-    tabContainer.Size = UDim2.new(tabWidthRatio, 0, 0.9, 0)
+    tabContainer.Size = UDim2.new(0.22, 0, 0.9, 0)
     tabContainer.ScrollBarThickness = 0
     tabContainer.ScrollingDirection = Enum.ScrollingDirection.Y
     tabContainer.Active = true
@@ -142,7 +131,7 @@ function Library:Create(table)
     uICorner1.Parent = tabContainer
 
     local uIListLayout = Instance.new("UIListLayout")
-    uIListLayout.Padding = UDim.new(0, 5) -- Espaçamento entre abas ajustado para 5 pixels
+    uIListLayout.Padding = UDim.new(0, 5)
     uIListLayout.FillDirection = Enum.FillDirection.Vertical
     uIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     uIListLayout.Parent = tabContainer
@@ -190,19 +179,15 @@ function Library:Create(table)
         main1.TextSize = 14
         main1.TextTransparency = 0
         main1.BackgroundColor3 = theme.TabButtonBackground
-        main1.BackgroundTransparency = 0
-        main1.Size = UDim2.fromOffset(tabButtonWidth, 26)
+        main1.BackgroundTransparency = transparency and 0.2 or 0
+        main1.Size = UDim2.fromOffset(100, 30)
         main1.AutoButtonColor = false
         main1.TextXAlignment = Enum.TextXAlignment.Left
         main1.Parent = tabContainer
 
-        local uICornerTab = Instance.new("UICorner")
-        uICornerTab.CornerRadius = UDim.new(0, 4)
-        uICornerTab.Parent = main1
-
         local icon = Instance.new("ImageLabel")
         icon.Name = "icon"
-        icon.Image = iconId or "rbxassetid://10709752996" -- Ícone padrão, pode ser ajustado
+        icon.Image = iconId or "rbxassetid://10709752996"
         icon.BackgroundTransparency = 1
         icon.Position = UDim2.fromScale(0.05, 0.25)
         icon.Size = UDim2.fromOffset(18, 18)
@@ -217,18 +202,22 @@ function Library:Create(table)
         textLabel.TextSize = 14
         textLabel.BackgroundTransparency = 1
         textLabel.Position = UDim2.fromScale(0.3, 0)
-        textLabel.Size = UDim2.fromOffset(tabButtonWidth - 25, 26)
+        textLabel.Size = UDim2.fromOffset(65, 30)
         textLabel.TextXAlignment = Enum.TextXAlignment.Left
         textLabel.Parent = main1
 
         main1.Text = ""
 
+        local uICornerTab = Instance.new("UICorner")
+        uICornerTab.CornerRadius = UDim.new(0, 4)
+        uICornerTab.Parent = main1
+
         local container = Instance.new("Frame")
         container.Name = "container"
         container.BackgroundColor3 = theme.ContainerBackground
-        container.BackgroundTransparency = 0
+        container.BackgroundTransparency = 0.4
         container.Position = UDim2.fromScale(0.26, 0.05)
-        container.Size = UDim2.new(contentWidthRatio, 0, 0.9, 0)
+        container.Size = UDim2.new(0.72, 0, 0.9, 0)
         container.Visible = false
         container.Parent = contentFrame
 
@@ -244,7 +233,7 @@ function Library:Create(table)
         tabNameLabel.TextSize = 16
         tabNameLabel.BackgroundTransparency = 1
         tabNameLabel.Position = UDim2.fromScale(0.03, 0.01)
-        tabNameLabel.Size = UDim2.fromOffset(elementWidth, 20)
+        tabNameLabel.Size = UDim2.fromOffset(340, 20)
         tabNameLabel.TextXAlignment = Enum.TextXAlignment.Left
         tabNameLabel.Parent = container
 
@@ -253,19 +242,18 @@ function Library:Create(table)
         holder.ScrollingDirection = Enum.ScrollingDirection.Y
         holder.Active = true
         holder.BackgroundTransparency = 1
-        holder.Position = UDim2.fromScale(0, 0.1)
-        holder.Size = UDim2.new(1, 0, 0.85, 0)
+        holder.Position = UDim2.fromScale(0.03, 0.1)
+        holder.Size = UDim2.new(0.94, 0, 0.85, 0)
         holder.CanvasSize = UDim2.fromOffset(0, 0)
         holder.Parent = container
 
         local uIPadding1 = Instance.new("UIPadding")
-        uIPadding1.PaddingLeft = UDim.new(0, 10)
+        uIPadding1.PaddingLeft = UDim.new(0, 5)
         uIPadding1.PaddingTop = UDim.new(0, 5)
-        uIPadding1.PaddingRight = UDim.new(0, 10)
         uIPadding1.Parent = holder
 
         local uIListLayout1 = Instance.new("UIListLayout")
-        uIListLayout1.Padding = UDim.new(0, 5) -- Espaçamento entre elementos ajustado para 5 pixels
+        uIListLayout1.Padding = UDim.new(0, 5)
         uIListLayout1.SortOrder = Enum.SortOrder.LayoutOrder
         uIListLayout1.Parent = holder
 
@@ -280,6 +268,7 @@ function Library:Create(table)
         main1.MouseEnter:Connect(function()
             if not container.Visible then
                 main1.BackgroundColor3 = theme.TabButtonHover
+                main1.BackgroundTransparency = transparency and 0.2 or 0
                 icon.ImageColor3 = theme.TabIconHover
                 textLabel.TextColor3 = theme.TabTextHover
             end
@@ -288,6 +277,7 @@ function Library:Create(table)
         main1.MouseLeave:Connect(function()
             if not container.Visible then
                 main1.BackgroundColor3 = theme.TabButtonBackground
+                main1.BackgroundTransparency = transparency and 0.2 or 0
                 icon.ImageColor3 = theme.TabIcon
                 textLabel.TextColor3 = theme.TabText
             end
@@ -302,6 +292,7 @@ function Library:Create(table)
             for _,v in pairs(tabContainer:GetChildren()) do
                 if v:IsA("TextButton") then
                     v.BackgroundColor3 = theme.TabButtonBackground
+                    v.BackgroundTransparency = transparency and 0.2 or 0
                     v:FindFirstChild("icon").ImageColor3 = theme.TabIcon
                     v:FindFirstChild("textLabel").TextTransparency = 0
                     v:FindFirstChild("textLabel").TextColor3 = theme.TabText
@@ -309,6 +300,7 @@ function Library:Create(table)
             end
             container.Visible = true
             main1.BackgroundColor3 = theme.TabButtonActive
+            main1.BackgroundTransparency = transparency and 0.2 or 0
             icon.ImageColor3 = theme.TabIconActive
             textLabel.TextTransparency = 0
             textLabel.TextColor3 = theme.TabTextActive
@@ -324,15 +316,15 @@ function Library:Create(table)
             sectionLabel.TextSize = 16
             sectionLabel.TextXAlignment = Enum.TextXAlignment.Left
             sectionLabel.BackgroundTransparency = 1
-            sectionLabel.Size = UDim2.fromOffset(elementWidth, 26)
+            sectionLabel.Size = UDim2.fromOffset(340, 30)
             sectionLabel.Parent = holder
         end
 
         function ElementHandler:Label(text)
             local label = Instance.new("Frame")
             label.BackgroundColor3 = theme.ElementBackground
-            label.BackgroundTransparency = 0
-            label.Size = UDim2.fromOffset(elementWidth, 26)
+            label.BackgroundTransparency = 0.1
+            label.Size = UDim2.fromOffset(340, 30)
             label.Parent = holder
 
             local uICorner3 = Instance.new("UICorner")
@@ -347,7 +339,7 @@ function Library:Create(table)
             textLabel.TextXAlignment = Enum.TextXAlignment.Left
             textLabel.BackgroundTransparency = 1
             textLabel.Position = UDim2.fromScale(0.02, 0)
-            textLabel.Size = UDim2.fromOffset(elementWidth - 10, 26)
+            textLabel.Size = UDim2.fromOffset(330, 30)
             textLabel.Parent = label
         end
 
@@ -357,8 +349,8 @@ function Library:Create(table)
 
             local button = Instance.new("TextButton")
             button.BackgroundColor3 = theme.ElementBackground
-            button.BackgroundTransparency = 0
-            button.Size = UDim2.fromOffset(elementWidth, 26)
+            button.BackgroundTransparency = 0.1
+            button.Size = UDim2.fromOffset(340, 30)
             button.Text = ""
             button.AutoButtonColor = false
             button.Parent = holder
@@ -375,7 +367,7 @@ function Library:Create(table)
             textLabel5.TextXAlignment = Enum.TextXAlignment.Left
             textLabel5.BackgroundTransparency = 1
             textLabel5.Position = UDim2.fromScale(0.02, 0)
-            textLabel5.Size = UDim2.fromOffset(elementWidth - 40, 26)
+            textLabel5.Size = UDim2.fromOffset(300, 30)
             textLabel5.Parent = button
 
             local icon = Instance.new("ImageLabel")
@@ -389,11 +381,13 @@ function Library:Create(table)
 
             button.MouseEnter:Connect(function()
                 button.BackgroundColor3 = theme.ElementHover
+                button.BackgroundTransparency = 0.1
                 icon.ImageColor3 = theme.TabIconHover
             end)
 
             button.MouseLeave:Connect(function()
                 button.BackgroundColor3 = theme.ElementBackground
+                button.BackgroundTransparency = 0.1
                 icon.ImageColor3 = theme.TabIcon
             end)
 
@@ -407,10 +401,15 @@ function Library:Create(table)
             max = max or 100
             callback = callback or function() end
 
-            local sliderHolder = Instance.new("Frame")
-            sliderHolder.BackgroundTransparency = 1
-            sliderHolder.Size = UDim2.fromOffset(elementWidth, 60)
-            sliderHolder.Parent = holder
+            local slider = Instance.new("Frame")
+            slider.BackgroundColor3 = theme.ElementBackground
+            slider.BackgroundTransparency = 0.1
+            slider.Size = UDim2.fromOffset(340, 30)
+            slider.Parent = holder
+
+            local uICorner4 = Instance.new("UICorner")
+            uICorner4.CornerRadius = UDim.new(0, 4)
+            uICorner4.Parent = slider
 
             local textLabel1 = Instance.new("TextLabel")
             textLabel1.Font = Enum.Font.Gotham
@@ -419,63 +418,41 @@ function Library:Create(table)
             textLabel1.TextSize = 14
             textLabel1.TextXAlignment = Enum.TextXAlignment.Left
             textLabel1.BackgroundTransparency = 1
-            textLabel1.Position = UDim2.fromScale(0, 0)
-            textLabel1.Size = UDim2.fromOffset(elementWidth, 20)
-            textLabel1.Parent = sliderHolder
-
-            local valueLabel = Instance.new("TextLabel")
-            valueLabel.Font = Enum.Font.Gotham
-            valueLabel.Text = tostring(default) .. "/" .. tostring(max) -- Formato "valor/max"
-            valueLabel.TextColor3 = theme.ElementText
-            valueLabel.TextSize = 14
-            valueLabel.TextXAlignment = Enum.TextXAlignment.Right
-            valueLabel.BackgroundTransparency = 1
-            valueLabel.Position = UDim2.fromScale(0, 0)
-            valueLabel.Size = UDim2.fromOffset(elementWidth, 20)
-            valueLabel.Parent = sliderHolder
-
-            local slider = Instance.new("Frame")
-            slider.BackgroundColor3 = theme.ElementBackground
-            slider.BackgroundTransparency = 0
-            slider.Size = UDim2.fromOffset(elementWidth, 26)
-            slider.Position = UDim2.fromOffset(0, 30)
-            slider.Parent = sliderHolder
-
-            local uICorner4 = Instance.new("UICorner")
-            uICorner4.CornerRadius = UDim.new(0, 4)
-            uICorner4.Parent = slider
+            textLabel1.Position = UDim2.fromScale(0.02, 0)
+            textLabel1.Size = UDim2.fromOffset(250, 30)
+            textLabel1.Parent = slider
 
             local frame = Instance.new("Frame")
             frame.BackgroundColor3 = theme.SliderTrack
             frame.BackgroundTransparency = 0
-            frame.Position = UDim2.fromScale(0.05, 0.25)
-            frame.Size = UDim2.fromOffset(math.floor(elementWidth * 0.9), 10)
+            frame.Position = UDim2.fromScale(0.76, 0.35)
+            frame.Size = UDim2.fromOffset(80, 6)
             frame.Parent = slider
 
             local uICorner5 = Instance.new("UICorner")
-            uICorner5.CornerRadius = UDim.new(0, 5)
+            uICorner5.CornerRadius = UDim.new(0, 3)
             uICorner5.Parent = frame
 
             local frame1 = Instance.new("Frame")
             frame1.BackgroundColor3 = theme.SliderFill
             frame1.BackgroundTransparency = 0
             frame1.Position = UDim2.fromScale(0, 0)
-            frame1.Size = UDim2.fromOffset(((default - min) / (max - min)) * math.floor(elementWidth * 0.9), 10)
+            frame1.Size = UDim2.fromOffset(((default - min) / (max - min)) * 80, 6)
             frame1.Parent = frame
 
             local uICorner6 = Instance.new("UICorner")
-            uICorner6.CornerRadius = UDim.new(0, 5)
+            uICorner6.CornerRadius = UDim.new(0, 3)
             uICorner6.Parent = frame1
 
-            local knob = Instance.new("Frame")
-            knob.BackgroundColor3 = theme.SliderKnob
-            knob.Size = UDim2.fromOffset(16, 16)
-            knob.Position = UDim2.fromScale(((default - min) / (max - min)) * 0.9 - 0.02, -0.3)
-            knob.Parent = frame
-
-            local uICornerKnob = Instance.new("UICorner")
-            uICornerKnob.CornerRadius = UDim.new(1, 0)
-            uICornerKnob.Parent = knob
+            local textLabel2 = Instance.new("TextLabel")
+            textLabel2.Font = Enum.Font.Gotham
+            textLabel2.Text = tostring(default)
+            textLabel2.TextColor3 = theme.ElementText
+            textLabel2.TextSize = 14
+            textLabel2.BackgroundTransparency = 1
+            textLabel2.Position = UDim2.fromScale(0.65, 0)
+            textLabel2.Size = UDim2.fromOffset(40, 30)
+            textLabel2.Parent = slider
 
             local dragging = false
 
@@ -498,9 +475,8 @@ function Library:Create(table)
                     local pos = input.Position.X
                     local percentage = math.clamp((pos - frame.AbsolutePosition.X) / frame.AbsoluteSize.X, 0, 1)
                     local value = math.floor(min + (max - min) * percentage)
-                    valueLabel.Text = tostring(value) .. "/" .. tostring(max)
-                    frame1.Size = UDim2.fromOffset(percentage * math.floor(elementWidth * 0.9), 10)
-                    knob.Position = UDim2.fromScale(percentage * 0.9 - 0.02, -0.3)
+                    textLabel2.Text = tostring(value)
+                    frame1.Size = UDim2.fromOffset(percentage * 80, 6)
                     callback(value)
                 end
             end)
@@ -518,43 +494,22 @@ function Library:Create(table)
             end)
         end
 
-        function ElementHandler:Toggle(text, default, callback)
-            text = text or "Toggle"
+        function ElementHandler:Checkbox(text, default, callback)
+            text = text or "Checkbox"
             default = default or false
             callback = callback or function() end
 
-            local toggle1 = Instance.new("TextButton")
-            toggle1.BackgroundColor3 = theme.ElementBackground
-            toggle1.BackgroundTransparency = 0
-            toggle1.Size = UDim2.fromOffset(elementWidth, 26)
-            toggle1.Text = ""
-            toggle1.AutoButtonColor = false
-            toggle1.Parent = holder
+            local checkbox = Instance.new("TextButton")
+            checkbox.BackgroundColor3 = theme.ElementBackground
+            checkbox.BackgroundTransparency = 0.1
+            checkbox.Size = UDim2.fromOffset(340, 30)
+            checkbox.Text = ""
+            checkbox.AutoButtonColor = false
+            checkbox.Parent = holder
 
             local uICorner9 = Instance.new("UICorner")
             uICorner9.CornerRadius = UDim.new(0, 4)
-            uICorner9.Parent = toggle1
-
-            local toggleFrame = Instance.new("Frame")
-            toggleFrame.BackgroundColor3 = default and theme.ToggleOn or theme.ToggleOff
-            toggleFrame.BackgroundTransparency = 0
-            toggleFrame.Position = UDim2.fromScale(0.02, 0.25)
-            toggleFrame.Size = UDim2.fromOffset(36, 18)
-            toggleFrame.Parent = toggle1
-
-            local uICorner10 = Instance.new("UICorner")
-            uICorner10.CornerRadius = UDim.new(1, 0)
-            uICorner10.Parent = toggleFrame
-
-            local toggleKnob = Instance.new("Frame")
-            toggleKnob.BackgroundColor3 = default and theme.ToggleKnobOn or theme.ToggleKnobOff
-            toggleKnob.Size = UDim2.fromOffset(16, 16)
-            toggleKnob.Position = default and UDim2.fromOffset(19, 1) or UDim2.fromOffset(1, 1)
-            toggleKnob.Parent = toggleFrame
-
-            local uICorner11 = Instance.new("UICorner")
-            uICorner11.CornerRadius = UDim.new(1, 0)
-            uICorner11.Parent = toggleKnob
+            uICorner9.Parent = checkbox
 
             local textLabel4 = Instance.new("TextLabel")
             textLabel4.Font = Enum.Font.Gotham
@@ -563,32 +518,44 @@ function Library:Create(table)
             textLabel4.TextSize = 14
             textLabel4.TextXAlignment = Enum.TextXAlignment.Left
             textLabel4.BackgroundTransparency = 1
-            textLabel4.Position = UDim2.fromScale(0.15, 0)
-            textLabel4.Size = UDim2.fromOffset(elementWidth - 50, 26)
-            textLabel4.Parent = toggle1
+            textLabel4.Position = UDim2.fromScale(0.02, 0)
+            textLabel4.Size = UDim2.fromOffset(300, 30)
+            textLabel4.Parent = checkbox
 
-            local tog = default
+            local checkFrame = Instance.new("Frame")
+            checkFrame.BackgroundColor3 = default and theme.CheckboxOn or theme.CheckboxOff
+            checkFrame.Position = UDim2.fromScale(0.92, 0.25)
+            checkFrame.Size = UDim2.fromOffset(20, 20)
+            checkFrame.Parent = checkbox
 
-            toggle1.MouseEnter:Connect(function()
-                toggle1.BackgroundColor3 = theme.ElementHover
+            local uICorner10 = Instance.new("UICorner")
+            uICorner10.CornerRadius = UDim.new(0, 4)
+            uICorner10.Parent = checkFrame
+
+            local checkIcon = Instance.new("ImageLabel")
+            checkIcon.BackgroundTransparency = 1
+            checkIcon.Image = "rbxassetid://10709768626"
+            checkIcon.ImageColor3 = theme.CheckboxIcon
+            checkIcon.Size = UDim2.fromOffset(16, 16)
+            checkIcon.Position = UDim2.fromScale(0.1, 0.1)
+            checkIcon.Visible = default
+            checkIcon.Parent = checkFrame
+
+            local checked = default
+
+            checkbox.MouseEnter:Connect(function()
+                checkbox.BackgroundColor3 = theme.ElementHover
             end)
 
-            toggle1.MouseLeave:Connect(function()
-                toggle1.BackgroundColor3 = theme.ElementBackground
+            checkbox.MouseLeave:Connect(function()
+                checkbox.BackgroundColor3 = theme.ElementBackground
             end)
 
-            toggle1.MouseButton1Click:Connect(function()
-                tog = not tog
-                callback(tog)
-                if tog then
-                    TweenService:Create(toggleKnob, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.fromOffset(19, 1)}):Play()
-                    toggleFrame.BackgroundColor3 = theme.ToggleOn
-                    toggleKnob.BackgroundColor3 = theme.ToggleKnobOn
-                else
-                    TweenService:Create(toggleKnob, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.fromOffset(1, 1)}):Play()
-                    toggleFrame.BackgroundColor3 = theme.ToggleOff
-                    toggleKnob.BackgroundColor3 = theme.ToggleKnobOff
-                end
+            checkbox.MouseButton1Click:Connect(function()
+                checked = not checked
+                callback(checked)
+                checkFrame.BackgroundColor3 = checked and theme.CheckboxOn or theme.CheckboxOff
+                checkIcon.Visible = checked
             end)
         end
 
@@ -598,8 +565,8 @@ function Library:Create(table)
 
             local textbox = Instance.new("Frame")
             textbox.BackgroundColor3 = theme.ElementBackground
-            textbox.BackgroundTransparency = 0
-            textbox.Size = UDim2.fromOffset(elementWidth, 26)
+            textbox.BackgroundTransparency = 0.1
+            textbox.Size = UDim2.fromOffset(340, 30)
             textbox.Parent = holder
 
             local uICorner13 = Instance.new("UICorner")
@@ -614,7 +581,7 @@ function Library:Create(table)
             textLabel6.TextXAlignment = Enum.TextXAlignment.Left
             textLabel6.BackgroundTransparency = 1
             textLabel6.Position = UDim2.fromScale(0.02, 0)
-            textLabel6.Size = UDim2.fromOffset(math.floor(elementWidth * 0.7), 26)
+            textLabel6.Size = UDim2.fromOffset(260, 30)
             textLabel6.Parent = textbox
 
             local textBox = Instance.new("TextBox")
@@ -626,8 +593,8 @@ function Library:Create(table)
             textBox.TextTruncate = Enum.TextTruncate.AtEnd
             textBox.BackgroundColor3 = theme.TextboxInputBackground
             textBox.BackgroundTransparency = 0
-            textBox.Position = UDim2.fromScale(0.72, 0.2)
-            textBox.Size = UDim2.fromOffset(math.floor(elementWidth * 0.2), 18)
+            textBox.Position = UDim2.fromScale(0.78, 0.2)
+            textBox.Size = UDim2.fromOffset(70, 18)
             textBox.Parent = textbox
 
             local uICorner14 = Instance.new("UICorner")
@@ -655,8 +622,8 @@ function Library:Create(table)
 
             local dropdown = Instance.new("Frame")
             dropdown.BackgroundColor3 = theme.ElementBackground
-            dropdown.BackgroundTransparency = 0
-            dropdown.Size = UDim2.fromOffset(elementWidth, 26)
+            dropdown.BackgroundTransparency = 0.1
+            dropdown.Size = UDim2.fromOffset(340, 30)
             dropdown.Parent = holder
 
             local uICorner = Instance.new("UICorner")
@@ -665,7 +632,7 @@ function Library:Create(table)
 
             local dropdownButton = Instance.new("TextButton")
             dropdownButton.BackgroundTransparency = 1
-            dropdownButton.Size = UDim2.fromOffset(elementWidth, 26)
+            dropdownButton.Size = UDim2.fromOffset(340, 30)
             dropdownButton.Text = ""
             dropdownButton.AutoButtonColor = false
             dropdownButton.Parent = dropdown
@@ -678,7 +645,7 @@ function Library:Create(table)
             dropdownLabel.TextXAlignment = Enum.TextXAlignment.Left
             dropdownLabel.BackgroundTransparency = 1
             dropdownLabel.Position = UDim2.fromScale(0.02, 0)
-            dropdownLabel.Size = UDim2.fromOffset(math.floor(elementWidth * 0.5), 26)
+            dropdownLabel.Size = UDim2.fromOffset(200, 30)
             dropdownLabel.Parent = dropdownButton
 
             local selectedLabel = Instance.new("TextLabel")
@@ -689,7 +656,7 @@ function Library:Create(table)
             selectedLabel.TextXAlignment = Enum.TextXAlignment.Right
             selectedLabel.BackgroundTransparency = 1
             selectedLabel.Position = UDim2.fromScale(0.55, 0)
-            selectedLabel.Size = UDim2.fromOffset(math.floor(elementWidth * 0.35), 26)
+            selectedLabel.Size = UDim2.fromOffset(120, 30)
             selectedLabel.Parent = dropdownButton
 
             local arrowIcon = Instance.new("ImageLabel")
@@ -705,7 +672,7 @@ function Library:Create(table)
             dropdownList.BackgroundColor3 = theme.DropdownListBackground
             dropdownList.BackgroundTransparency = 0
             dropdownList.Position = UDim2.fromScale(0, 1)
-            dropdownList.Size = UDim2.fromOffset(elementWidth, 0)
+            dropdownList.Size = UDim2.fromOffset(340, 0)
             dropdownList.ScrollBarThickness = 0
             dropdownList.ScrollingDirection = Enum.ScrollingDirection.Y
             dropdownList.CanvasSize = UDim2.fromOffset(0, 0)
@@ -718,7 +685,7 @@ function Library:Create(table)
 
             local listLayout = Instance.new("UIListLayout")
             listLayout.SortOrder = Enum.SortOrder.LayoutOrder
-            listLayout.Padding = UDim.new(0, 5)
+            listLayout.Padding = UDim.new(0, 2)
             listLayout.Parent = dropdownList
 
             local listPadding = Instance.new("UIPadding")
@@ -727,8 +694,8 @@ function Library:Create(table)
             listPadding.Parent = dropdownList
 
             local isOpen = false
-            local maxHeight = math.floor(windowHeight * 0.3)
-            local optionHeight = 22
+            local maxHeight = 100
+            local optionHeight = 25
             local totalHeight = #options * (optionHeight + listLayout.Padding.Offset) + listPadding.PaddingTop.Offset + listPadding.PaddingBottom.Offset
             local listHeight = math.min(totalHeight, maxHeight)
 
@@ -736,10 +703,10 @@ function Library:Create(table)
 
             local function updateListSize()
                 if isOpen then
-                    dropdownList.Size = UDim2.fromOffset(elementWidth, listHeight)
+                    dropdownList.Size = UDim2.fromOffset(340, listHeight)
                     dropdownList.Visible = true
                 else
-                    dropdownList.Size = UDim2.fromOffset(elementWidth, 0)
+                    dropdownList.Size = UDim2.fromOffset(340, 0)
                     dropdownList.Visible = false
                 end
             end
@@ -770,7 +737,7 @@ function Library:Create(table)
                 local optionButton = Instance.new("TextButton")
                 optionButton.BackgroundColor3 = theme.DropdownOptionBackground
                 optionButton.BackgroundTransparency = 0
-                optionButton.Size = UDim2.fromOffset(elementWidth, optionHeight)
+                optionButton.Size = UDim2.fromOffset(340, optionHeight)
                 optionButton.Text = ""
                 optionButton.AutoButtonColor = false
                 optionButton.Parent = dropdownList
@@ -787,7 +754,7 @@ function Library:Create(table)
                 optionLabel.TextXAlignment = Enum.TextXAlignment.Left
                 optionLabel.BackgroundTransparency = 1
                 optionLabel.Position = UDim2.fromScale(0.02, 0)
-                optionLabel.Size = UDim2.fromOffset(elementWidth - 10, optionHeight)
+                optionLabel.Size = UDim2.fromOffset(330, optionHeight)
                 optionLabel.Parent = optionButton
 
                 optionButton.MouseEnter:Connect(function()
@@ -809,13 +776,13 @@ function Library:Create(table)
 
             local dropdownHolder = Instance.new("Frame")
             dropdownHolder.BackgroundTransparency = 1
-            dropdownHolder.Size = UDim2.fromOffset(elementWidth, 28 + (isOpen and listHeight or 0))
+            dropdownHolder.Size = UDim2.fromOffset(340, 30 + (isOpen and listHeight or 0))
             dropdownHolder.Parent = holder
 
             dropdown.Parent = dropdownHolder
 
             local function updateDropdownHolderSize()
-                dropdownHolder.Size = UDim2.fromOffset(elementWidth, 28 + (isOpen and listHeight or 0))
+                dropdownHolder.Size = UDim2.fromOffset(340, 30 + (isOpen and listHeight or 0))
                 updateCanvasSize()
             end
 
@@ -832,10 +799,23 @@ function Library:Create(table)
             local firstButton = tabContainer:FindFirstChildWhichIsA("TextButton")
             if firstButton then
                 firstButton.BackgroundColor3 = theme.TabButtonActive
+                firstButton.BackgroundTransparency = transparency and 0.2 or 0
                 firstButton:FindFirstChild("icon").ImageColor3 = theme.TabIconActive
                 firstButton:FindFirstChild("textLabel").TextTransparency = 0
                 firstButton:FindFirstChild("textLabel").TextColor3 = theme.TabTextActive
             end
+        end
+    end)
+
+    spawn(function()
+        if table.StartupSound and table.StartupSound.Toggle and table.StartupSound.SoundID then
+            local sound = Instance.new("Sound", game.CoreGui)
+            sound.SoundId = table.StartupSound.SoundID
+            sound.Volume = 1.5
+            sound.TimePosition = table.StartupSound.TimePosition or 0
+            sound:Play()
+            sound.Stopped:Wait()
+            sound:Destroy()
         end
     end)
 
